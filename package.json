@@ -1,11 +1,8 @@
 {
-  "name": "bitbox-sdk",
-  "version": "7.3.0",
-  "description": "BITBOX SDK for Bitcoin Cash",
+  "name": "bitbox-cli",
+  "version": "2.0.0",
+  "description": "BITBOX Command Line tools",
   "author": "Gabriel Cardona <gabriel@bitcoin.com>",
-  "contributors": [
-    "Chris Troutner <chris.troutner@gmail.com>"
-  ],
   "scripts": {
     "test": "tsc && nyc mocha test/unit --timeout 60000 --exit",
     "test:integration": "TEST=integration nyc --reporter=text mocha --require babel-core/register --timeout 30000 test/integration",
@@ -14,20 +11,19 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=10.15.1"
+    "node": ">=10.15.3"
   },
   "bin": {
     "bitbox": "./index.js"
   },
   "main": "index.js",
   "files": [
-    "index.js",
-    "lib/"
+    "index.js"
   ],
   "homepage": "https://developer.bitcoin.com/bitbox",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Bitcoin-com/bitbox-javascript-sdk.git"
+    "url": "git+https://github.com/Bitcoin-com/bitbox-cli.git"
   },
   "dependencies": {
     "@types/bigi": "^1.4.2",
@@ -57,6 +53,7 @@
     "bip38": "^2.0.2",
     "bip39": "^2.5.0",
     "bip66": "^1.1.5",
+    "bitbox-sdk": "^7.3.0",
     "bitcoincash-ops": "Bitcoin-com/bitcoincash-ops#2.0.0",
     "bitcoincashjs-lib": "Bitcoin-com/bitcoincashjs-lib#v4.0.0",
     "bitcoinjs-message": "^2.0.0",

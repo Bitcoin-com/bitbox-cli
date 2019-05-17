@@ -5,15 +5,8 @@
     "target": "es5",
     "downlevelIteration": true,
     "moduleResolution": "node",
-    "lib": [
-      "es2017"
-    ],
+    "lib": ["es2017"],
     "sourceMap": true
   },
-  "include": [
-    "./lib",
-    "./test",
-    "./test/unit/**/*.ts",
-    "index.ts"
-  ]
+  "include": ["index.ts"]
 }
