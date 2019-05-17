@@ -25,7 +25,7 @@ interface NewOptions extends ConsoleOptions {
   restURL: string;
 }
 
-program.version("2.0.0 ", "-v, --version");
+program.version("2.0.1 ", "-v, --version");
 
 program
   .command("new <name>")
