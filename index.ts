@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 require("babel-register")
+import { BITBOX } from "bitbox-sdk"
 import chalk from "chalk"
 import * as program from "commander"
 import * as figlet from "figlet"
