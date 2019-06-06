@@ -1,31 +1,30 @@
 #!/usr/bin/env node
 
-require("babel-register");
-import { BITBOX } from "bitbox-sdk/lib/BITBOX";
-import chalk from "chalk";
-import * as program from "commander";
-import * as figlet from "figlet";
-import * as fs from "fs";
-import * as mkdirp from "mkdirp";
-import * as emoji from "node-emoji";
-import * as path from "path";
-import * as repl from "repl";
-import * as touch from "touch";
+require("babel-register")
+import chalk from "chalk"
+import * as program from "commander"
+import * as figlet from "figlet"
+import * as fs from "fs"
+import * as mkdirp from "mkdirp"
+import * as emoji from "node-emoji"
+import * as path from "path"
+import * as repl from "repl"
+import * as touch from "touch"
 
 // TODO: port to `import` statement
-let clear = require("clear");
-let clone = require("git-clone");
+let clear = require("clear")
+let clone = require("git-clone")
 
 interface ConsoleOptions {
-  environment: string;
+  environment: string
 }
 
 interface NewOptions extends ConsoleOptions {
-  scaffold: string;
-  restURL: string;
+  scaffold: string
+  restURL: string
 }
 
-program.version("2.0.1 ", "-v, --version");
+program.version("2.0.2 ", "-v, --version")
 
 program
   .command("new <name>")
@@ -46,47 +45,46 @@ program
     (name: string, options: NewOptions): void => {
       // confirm project doesn't already exist
       if (fs.existsSync(`./${name}`)) {
-        console.log(chalk.red(`Project ${name} already exists`));
-        process.exit(1);
+        console.log(chalk.red(`Project ${name} already exists`))
+        process.exit(1)
       }
 
       // pass in empty config object as it's not needed for new command
-      const config: {} = {};
+      const config: {} = {}
 
       // get environment option. default to development if no options.environment
       const environment = fetchOption(
         "environment=development",
         config,
         options
-      );
+      )
 
       // get restURL option. default to TREST if no options.restURL
       const restURL = fetchOption(
         "restURL=https://trest.bitcoin.com/v2/",
         config,
         options
-      );
+      )
 
       // scaffold flow
       if (options && options.scaffold) {
-        let scaffold: string = options.scaffold.toLowerCase();
-        let repo: string = "";
+        let scaffold: string = options.scaffold.toLowerCase()
+        let repo: string = ""
         if (scaffold === "node") {
-          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-node.git";
+          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-node.git"
         } else if (scaffold === "angular") {
-          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-angular.git";
+          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-angular.git"
         } else if (scaffold === "next") {
-          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-next.git";
+          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-next.git"
         } else if (scaffold === "react") {
-          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-react.git";
+          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-react.git"
         } else if (scaffold === "vue") {
-          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-vue.git";
+          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-vue.git"
         } else if (scaffold === "websockets") {
-          repo =
-            "https://github.com/Bitcoin-com/bitbox-scaffold-websockets.git";
+          repo = "https://github.com/Bitcoin-com/bitbox-scaffold-websockets.git"
         } else {
-          console.log(chalk.red(`Scaffold ${scaffold} not supported`));
-          process.exit(1);
+          console.log(chalk.red(`Scaffold ${scaffold} not supported`))
+          process.exit(1)
         }
 
         // TODO: Bring this back when we allow --repo flag to clone random repos
@@ -95,7 +93,7 @@ program
         //   repo = options.repo.toLowerCase()
         // }
 
-        clear();
+        clear()
         console.log(
           chalk.blue(
             figlet.textSync("BITBOX", {
@@ -103,11 +101,11 @@ program
               horizontalLayout: "full"
             })
           )
-        );
+        )
 
         // pass in empty conf object
-        const conf: {} = {};
-        console.log(chalk.blue(`Scaffolding ${scaffold} app in ${name}`));
+        const conf: {} = {}
+        console.log(chalk.blue(`Scaffolding ${scaffold} app in ${name}`))
         clone(
           repo,
           `./${name}`,
@@ -116,39 +114,39 @@ program
             if (res === "Error: 'git clone' failed with status 128") {
               console.log(
                 chalk.red("Must create new app in to an empty directory")
-              );
+              )
             } else {
               console.log(
                 chalk.green("All done."),
                 emoji.get(":white_check_mark:")
-              );
+              )
               console.log(
                 chalk.blue(
                   "Now `cd` in to your new project and run `npm install && npm start`"
                 ),
                 emoji.get(":rocket:")
-              );
+              )
             }
           }
-        );
-        return;
+        )
+        return
       }
 
-      console.log(chalk.green(`Creating ${name}/ directory`));
-      console.log(chalk.green(`Creating src/ directory: ./${name}/src`));
-      mkdirp(`./${name}/src`, (err: any) => {});
+      console.log(chalk.green(`Creating ${name}/ directory`))
+      console.log(chalk.green(`Creating src/ directory: ./${name}/src`))
+      mkdirp(`./${name}/src`, (err: any) => {})
 
-      console.log(chalk.green(`Creating tests/ directory: ./${name}/tests`));
-      mkdirp(`./${name}/tests`, (err: any) => {});
+      console.log(chalk.green(`Creating tests/ directory: ./${name}/tests`))
+      mkdirp(`./${name}/tests`, (err: any) => {})
 
       console.log(
         chalk.green(
           `Creating bitbox.js configuration file: ./${name}/bitbox.js`
         )
-      );
+      )
 
-      mkdirp(`./${name}`, (err: any) => {});
-      touch(`./${name}/bitbox.js`);
+      mkdirp(`./${name}`, (err: any) => {})
+      touch(`./${name}/bitbox.js`)
       fs.writeFileSync(
         `./${name}/bitbox.js`,
         `exports.config = {
@@ -159,17 +157,17 @@ program
   }
 };
 `
-      );
-      fs.appendFileSync(`./${name}/.gitignore`, ".console_history");
-      console.log(chalk.blue("All done."), emoji.get(":white_check_mark:"));
+      )
+      fs.appendFileSync(`./${name}/.gitignore`, ".console_history")
+      console.log(chalk.blue("All done."), emoji.get(":white_check_mark:"))
       console.log(
         chalk.blue(
           "Go get em! Remember--with great power comes great responsibility."
         ),
         emoji.get(":rocket:")
-      );
+      )
     }
-  );
+  )
 
 program
   .command("console")
@@ -183,29 +181,29 @@ program
       // TODO: create interface for `config`
       let config: any = {
         environments: {}
-      };
+      }
 
       try {
-        config = require(`${process.cwd()}/bitbox.js`).config;
+        config = require(`${process.cwd()}/bitbox.js`).config
       } catch (err) {
         console.log(
           chalk.red("Console command must be run inside a bitbox project")
-        );
-        process.exit(1);
+        )
+        process.exit(1)
       }
-      const replServer = repl.start("> ");
-      const historyFile = path.join(process.cwd(), ".console_history");
-      require("repl.history")(replServer, historyFile);
+      const replServer = repl.start("> ")
+      const historyFile = path.join(process.cwd(), ".console_history")
+      require("repl.history")(replServer, historyFile)
 
       const environment = fetchOption(
         "environment=development",
         config,
         options
-      );
+      )
 
-      replServer.context.bitbox = new BITBOX(config.environments[environment]);
+      replServer.context.bitbox = new BITBOX(config.environments[environment])
     }
-  );
+  )
 
 function fetchOption(
   kv: string,
@@ -213,16 +211,16 @@ function fetchOption(
   options: ConsoleOptions | NewOptions | any
 ): string {
   // TODO: remove `any` type from `options` argument
-  const parts: string[] = kv.split("=");
-  const key: string = parts[0];
-  const defaultVal: string = parts[1];
-  if (options && options[key]) return options[key];
-  else if (config && config.new && config.new[key]) return config.new[key];
+  const parts: string[] = kv.split("=")
+  const key: string = parts[0]
+  const defaultVal: string = parts[1]
+  if (options && options[key]) return options[key]
+  else if (config && config.new && config.new[key]) return config.new[key]
 
-  return defaultVal;
+  return defaultVal
 }
 
-program.parse(process.argv);
+program.parse(process.argv)
 
 // print help if no command given
-if (!process.argv.slice(2).length) program.outputHelp();
+if (!process.argv.slice(2).length) program.outputHelp()
