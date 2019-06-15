@@ -1,6 +1,6 @@
 {
   "name": "bitbox-cli",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "BITBOX Command Line tools",
   "author": "Gabriel Cardona <gabriel@bitcoin.com>",
   "scripts": {
@@ -42,7 +42,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
     "bigi": "^1.4.2",
-    "bitbox-sdk": "8.4.0",
+    "bitbox-sdk": "8.4.1",
     "browserify": "^16.2.2",
     "bs58": "^4.0.1",
     "buffer": "^5.1.0",
