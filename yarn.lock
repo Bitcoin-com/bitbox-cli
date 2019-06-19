@@ -1358,17 +1358,14 @@ bip66@^1.1.0, bip66@^1.1.5:
   dependencies:
     safe-buffer "^5.0.1"
 
-bitbox-sdk@8.4.1:
-  version "8.4.1"
-  resolved "https://registry.yarnpkg.com/bitbox-sdk/-/bitbox-sdk-8.4.1.tgz#3b38df9b84d24095379bf19a156eefa6b8b62e67"
+bitbox-sdk@8.4.2:
+  version "8.4.2"
+  resolved "https://registry.yarnpkg.com/bitbox-sdk/-/bitbox-sdk-8.4.2.tgz#0d9ebc77f92b7884faae8a1a9ebbabf48315c877"
   dependencies:
     "@types/bigi" "^1.4.2"
     "@types/bip39" "^2.4.2"
-    "@types/chai" "^4.1.7"
-    "@types/mocha" "^5.2.6"
     "@types/node" "^10.11.7"
     "@types/randombytes" "^2.0.0"
-    "@types/sinon" "^7.0.11"
     "@types/wif" "^2.0.1"
     assert "^1.4.1"
     axios "0.19.0"
