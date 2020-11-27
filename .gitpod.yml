@@ -1,0 +1,4 @@
+image: gitpod/workspace-mongodb
+
+tasks:
+  - init: yarn install && yarn run build
